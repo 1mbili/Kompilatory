@@ -3,8 +3,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
-import grammar.CockroachLexer;
-import grammar.CockroachParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
@@ -25,7 +23,7 @@ public class Main {
 			} else if ("-o".equals(args[i])) {
 				outputFilePath = args[i + 1];
 			} else if ("-h".equals(args[i])) {
-				System.out.println("Użycie: java -jar cockroach-lang.jar -i ścieżka_do_pliku -o ścieżka_do_pliku");
+				System.out.println("Użycie: java -jar RBOL-lang.jar -i ścieżka_do_pliku -o ścieżka_do_pliku");
 
 			}
 		}
@@ -41,9 +39,9 @@ public class Main {
 		}
 
 		assert inputStream != null;
-		Lexer lexer = new CockroachLexer(CharStreams.fromStream(inputStream));
+		Lexer lexer = new RBOLLexer(CharStreams.fromStream(inputStream));
 		TokenStream tokenStream = new CommonTokenStream(lexer);
-		CockroachParser parser = new CockroachParser(tokenStream);
+		RBOLParser parser = new RBOLParser(tokenStream);
 		EventVisitor eval = new EventVisitor();
 
 		ParseTreeWalker walker = new ParseTreeWalker();

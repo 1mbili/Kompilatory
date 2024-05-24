@@ -1,9 +1,9 @@
-grammar Cockroach;
+grammar RBOL;
 
 // Parser rules
 startRule : statement* EOF;
 
-statement : expression  ';';
+statement : expression;
 
 expression : assignment | print | scan | scand;
 
@@ -24,7 +24,7 @@ variable : ID | INT | FLOAT | DOUBLE | LONG;
 
 SCAN : 'scan';
 SCAND : 'scand';
-PRINT : 'print';
+PRINT : 'printf';
 LONG : INT 'l';
 FLOAT : INT '.' INT 'f';
 DOUBLE : INT '.' INT;

@@ -1,4 +1,0 @@
-scand g;
-print g;
-g = g + 10.0;
-print g;

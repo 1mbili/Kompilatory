@@ -1,22 +1,20 @@
-import grammar.CockroachBaseListener;
-import grammar.CockroachParser;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-public class EventVisitor extends CockroachBaseListener {
+public class EventVisitor extends RBOLBaseListener {
 	private final Map<String, TYPE> variables = new HashMap<>();
 	private final Stack<String> stack = new Stack<>();
 	private final Stack<TYPE> types = new Stack<>();
 
 	@Override
-	public void exitStartRule(CockroachParser.StartRuleContext ctx) {
+	public void exitStartRule(RBOLParser.StartRuleContext ctx) {
 		System.out.println(LlvmGenerator.generate());
 	}
 
 	@Override
-	public void exitAssignment(CockroachParser.AssignmentContext ctx) {
+	public void exitAssignment(RBOLParser.AssignmentContext ctx) {
 		TYPE type = types.pop();
 		if (ctx.ID() != null) {
 			String id = ctx.ID().getText();
@@ -29,7 +27,7 @@ public class EventVisitor extends CockroachBaseListener {
 	}
 
 	@Override
-	public void exitVariable(CockroachParser.VariableContext ctx) {
+	public void exitVariable(RBOLParser.VariableContext ctx) {
 		if (ctx.ID() != null) {
 			String id = ctx.ID().getText();
 			if (variables.containsKey(id)) {
@@ -37,7 +35,7 @@ public class EventVisitor extends CockroachBaseListener {
 				stack.push("%" + (LlvmGenerator.reg - 1));
 				types.push(variables.get(id));
 			} else {
-				error(ctx.getStart().getLine(), "unknown variable " + id);
+				error(ctx.getStart().getLine(), "Unknown variable " + id);
 			}
 		} else if (ctx.INT() != null) {
 			stack.push(ctx.INT().getText());
@@ -55,7 +53,7 @@ public class EventVisitor extends CockroachBaseListener {
 	}
 
 	@Override
-	public void exitAdd(CockroachParser.AddContext ctx) {
+	public void exitAdd(RBOLParser.AddContext ctx) {
 		TYPE type1 = types.pop();
 		TYPE type2 = types.pop();
 		if (type1 != type2) {
@@ -67,11 +65,11 @@ public class EventVisitor extends CockroachBaseListener {
 	}
 
 	@Override
-	public void exitSubstract(CockroachParser.SubstractContext ctx) {
+	public void exitSubstract(RBOLParser.SubstractContext ctx) {
 		TYPE type1 = types.pop();
 		TYPE type2 = types.pop();
 		if (type1 != type2) {
-			error(ctx.getStart().getLine(), "types mismatch");
+			error(ctx.getStart().getLine(), "Types mismatch");
 		}
 		LlvmGenerator.substract(stack.pop(), stack.pop(), type1);
 		stack.push("%" + (LlvmGenerator.reg - 1));
@@ -79,11 +77,11 @@ public class EventVisitor extends CockroachBaseListener {
 	}
 
 	@Override
-	public void exitMul(CockroachParser.MulContext ctx) {
+	public void exitMul(RBOLParser.MulContext ctx) {
 		TYPE type1 = types.pop();
 		TYPE type2 = types.pop();
 		if (type1 != type2) {
-			error(ctx.getStart().getLine(), "types mismatch");
+			error(ctx.getStart().getLine(), "Types mismatch");
 		}
 		LlvmGenerator.mul(stack.pop(), stack.pop(), type1);
 		stack.push("%" + (LlvmGenerator.reg - 1));
@@ -91,7 +89,7 @@ public class EventVisitor extends CockroachBaseListener {
 	}
 
 	@Override
-	public void exitDivide(CockroachParser.DivideContext ctx) {
+	public void exitDivide(RBOLParser.DivideContext ctx) {
 		TYPE type1 = types.pop();
 		TYPE type2 = types.pop();
 		if (type1 != type2) {
@@ -104,17 +102,17 @@ public class EventVisitor extends CockroachBaseListener {
 
 
 	@Override
-	public void exitPrint(CockroachParser.PrintContext ctx) {
+	public void exitPrint(RBOLParser.PrintContext ctx) {
 		String id = ctx.ID().getText();
 		if (variables.containsKey(id)) {
 			LlvmGenerator.printf(id, variables.get(id));
 		} else {
-			error(ctx.getStart().getLine(), "unknown variable " + id);
+			error(ctx.getStart().getLine(), "Unknown variable: " + id);
 		}
 	}
 
 	@Override
-	public void exitScan(CockroachParser.ScanContext ctx) {
+	public void exitScan(RBOLParser.ScanContext ctx) {
 		String id = ctx.ID().getText();
 		if (!variables.containsKey(id)) {
 			variables.put(id, TYPE.INT);
@@ -126,7 +124,7 @@ public class EventVisitor extends CockroachBaseListener {
 	}
 
 	@Override
-	public void enterScand(CockroachParser.ScandContext ctx) {
+	public void enterScand(RBOLParser.ScandContext ctx) {
 		String id = ctx.ID().getText();
 		if (!variables.containsKey(id)) {
 			variables.put(id, TYPE.FLOAT64);
@@ -138,7 +136,7 @@ public class EventVisitor extends CockroachBaseListener {
 	}
 
 	void error(int line, String msg) {
-		System.err.println("Error, line " + line + ", " + msg);
+		System.err.println("Error: " + msg + ", " + line);
 		System.exit(1);
 	}
 }
