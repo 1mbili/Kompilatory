@@ -1,4 +1,7 @@
 # How to use ?
 
 Execute:
- - bash ./build.sh
+ - make test
+
+Clean if error
+  - make clean
