@@ -65,6 +65,7 @@ public class LlvmGenerator {
 	}
 
 	static void scan(String id) {
+		buffer += "%" + id + " = alloca i32\n";
 		buffer += "%" + reg + " = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @strs, i32 0, i32 0), i32* %" + id + ")\n";
 		reg++;
 	}
@@ -105,6 +106,7 @@ public class LlvmGenerator {
 	}
 
 	static void scanDouble(String id) {
+		buffer += "%" + id + " = alloca i32\n";
 		buffer += "%" + reg + " = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @strd, i32 0, i32 0), double* %" + id + ")\n";
 		reg++;
 	}

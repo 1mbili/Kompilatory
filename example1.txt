@@ -1,8 +1,7 @@
 a =11.0;
-func_i an:
+func_int an:
 	local a = 10;
-	a = a * a;
-	an = a;
+	an = a * a;
 end;
 local b = an;
 print a;

@@ -45,9 +45,9 @@ public class RBOLParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "';'", "'='", "'('", "')'", "'.'", "'int'", "'double'", "'float'", 
-			"'long'", "'=='", "'>'", "'<'", "'struct'", "'repeat'", "'func_i'", "'func_d'", 
-			"'local'", "'if'", "'end'", "'scan'", "'scand'", "'print'", null, null, 
-			null, "'+'", "'-'", "'*'", "'/'", null, null, null, "':'"
+			"'long'", "'=='", "'>'", "'<'", "'struct'", "'repeat'", "'func_int'", 
+			"'func_double'", "'local'", "'if'", "'end'", "'scan'", "'scand'", "'print'", 
+			null, null, null, "'+'", "'-'", "'*'", "'/'", null, null, null, "':'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();

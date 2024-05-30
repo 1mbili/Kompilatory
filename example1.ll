@@ -13,11 +13,9 @@ store i32 10, i32* %a
 %1 = load i32, i32* %a
 %2 = load i32, i32* %a
 %3 = mul i32 %2, %1
-store i32 %3, i32* %a
-%4 = load i32, i32* %a
-store i32 %4, i32* %an
-%5 = load i32, i32* %an
-ret i32 %5
+store i32 %3, i32* %an
+%4 = load i32, i32* %an
+ret i32 %4
 }
 define i32 @main() nounwind{
 store double 11.0, double* @a

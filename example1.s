@@ -5,7 +5,7 @@
 	.type	an,@function
 an:                                     # @an
 # %bb.0:
-	movl	$100, -8(%rsp)
+	movl	$10, -8(%rsp)
 	movl	$100, -4(%rsp)
 	movl	$100, %eax
 	retq

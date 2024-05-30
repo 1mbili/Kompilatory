@@ -74,8 +74,8 @@ STRUCT : 'struct';
 
 REPEAT : 'repeat';
 
-FUNTION_INT :'func_i';
-FUNTION_DOUBLE :'func_d';
+FUNTION_INT :'func_int';
+FUNTION_DOUBLE :'func_double';
 
 LOCAL : 'local';
 IF : 'if';
