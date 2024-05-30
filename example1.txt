@@ -1,3 +1,9 @@
-a = 10l
-b = 13
-printf a
+a =11.0;
+func_i an:
+	local a = 10;
+	a = a * a;
+	an = a;
+end;
+local b = an;
+print a;
+print b;
