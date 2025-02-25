@@ -1,0 +1,12 @@
+struct moja:
+    int
+    double
+end;
+
+a = moja ( 4 1.0 );
+
+b = a.0;
+c = a.1;
+
+print b;
+print c;

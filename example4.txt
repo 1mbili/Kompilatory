@@ -1,0 +1,10 @@
+a = 1;
+c = 3
+b = 4;
+repeat b:
+    a = a + 1;
+end;
+if a > c:
+    print a;
+end;
+print b;

@@ -1,0 +1,8 @@
+a =11.0;
+func_int an:
+	local a = 10;
+	an = a * a;
+end;
+local b = an;
+print a;
+print b;
